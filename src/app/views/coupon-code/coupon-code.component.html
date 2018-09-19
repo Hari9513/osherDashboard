@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="table-responsive">
+    <!-- <div class="col-sm-3"></div> -->
+    <!-- <div class="row"> -->
+      <div class="card">
+        <div class="card-body">
+          <ng-template #template class="modal-content" style="margin-top: 150px">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Authentication Checking</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3>Generate Coupon</h3>
+              <form name="myForm" #myForm="ngForm">
+                <div class="form-group">
+                  <input type="number" class="form-control" name="couponamount" placeholder="Coupon Amount" [(ngModel)]="couponamount" aria-required="true">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-success" type="submit" (click)="generate();modalRef.hide()">Generate</button>
+                </div>
+              </form>
+            </div>
+          </ng-template>
+          <!-- <select class="form-control" name="filter" [(ngModel)]="value" (change)="onChange()">
+            <option></option>
+            <option value="1000">1000</option>
+            <option value="200">200</option>
+            <option value="300">300</option>
+          </select> -->
+        <div class="pull-left">
+            <h4 class="card-title mb-0">Coupons List</h4>
+          </div>
+          <button type="button" class="btn btn-primary pull-right" (click)="openModal(template)">Generate Coupon</button>
+          <table class="table table-responsive-sm table-hover table-outline mb-0 mt-20">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center">SI.No</th>
+                <th class="text-center">Coupon Code</th>
+                <th class="text-center">Coupon Amount</th>
+                <th class="text-center">Created Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let coupon of couponDatas; let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">{{coupon.couponcode?coupon.couponcode:'N/A'}}</td>
+                <td class="text-center">{{coupon.couponamount?coupon.couponamount:'N/A'}}</td>
+                <td class="text-center">{{coupon.created_AT | date:'MMM d, y, h:mm:ss a'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>

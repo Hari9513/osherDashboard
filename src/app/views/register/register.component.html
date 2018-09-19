@@ -1,0 +1,82 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <form [formGroup]="registrationForm" (ngSubmit)="register()">
+                <div formGroupName="tempData">
+            <div class="card-body p-4">
+              <h1>Register</h1>
+              <p class="text-muted">Create your account</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Name" formControlName="name">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="email" name="email" class="form-control" (change)="emailExist(registrationForm.value)" placeholder="Email ID" formControlName="email"><br>
+                <div *ngIf="registrationForm.controls.tempData.controls.email.value">
+                <div style="color: red;" *ngIf="registrationForm.controls.tempData.controls.email.errors"> 
+                       Email Address is invalid.Please Enter a valid one.
+                 </div>
+                 <div style="color: red;" *ngIf="emailAlreadyExist"> 
+                        {{emailAlreadyExist}}
+            </div>
+              </div>
+            </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
+                </div>
+                <input type="password" name="password" class="form-control" placeholder="Password" formControlName="password">
+                <div *ngIf="registrationForm.controls.tempData.controls.password.value">
+                  <div *ngIf="registrationForm.controls.tempData.controls.password.errors" style="color: red;"> 
+                      Password must contain 8 characters.
+                  </div>
+                  <div *ngIf="registrationForm.controls.tempData.controls.password.errors" style="color: red;"> 
+                        Password must contain capital letter, numbers and special character.
+                  </div> 
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-phone"></i></span>
+                </div>
+                <input type="text" name="phone" class="form-control" (change)="phoneExist(registrationForm.value)" formControlName="phone" placeholder="Phone Number">
+                <div style="color: red;" *ngIf="phoneAlreadyExist"> 
+                 {{phoneAlreadyExist}}
+                </div>
+              </div>
+              <div class="form-group">
+                <select formControlName="roles" class="form-control" placeholder="Select Role">
+                  <option disabled>Select Role</option>
+                  <option value="1">Admin</option>
+                  <option value="2">User</option>
+                </select>
+              </div>
+              <!-- <div class="form-group">
+                <select multiple formControlName="setAvailableMenus" name="menus" class="form-control" placeholder="Select Menus" >
+                  <option disabled>Select Menus</option>
+                  <option value="1">Dashboard</option>
+                  <option value="2">Products</option>
+                  <option value="2">Watch Ads</option>
+                  <option value="3">Customers</option>
+                  <option value="4">Coupons</option>
+                </select>
+              </div> -->
+              <button type="submit" class="btn btn-block btn-success" [disabled]="registrationForm.invalid || phoneAlreadyExist || emailAlreadyExist">Create Account</button>
+              <button type="button" class="btn btn-block btn-primary" (click)="loginPage()">Login</button>
+            </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

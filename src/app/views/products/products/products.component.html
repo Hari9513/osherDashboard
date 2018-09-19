@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="mt-20 table-responsive">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form">
+        <div class="pull-left">
+          <h4 class="card-title mb-0">Products</h4>
+        </div>
+        <div class="pull-right">
+          <ng-template #template class="modal-content" style="margin-top: 150px">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Authentication Checking</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-6" style="margin-left: 130px">
+                <div class="form-group">
+              <input type="password" name="password" formControlName="password" class="form-control" placeholder="Enter Password">
+            </div>
+            <p *ngIf="notExist" style="color: red">Invalid Password</p>
+              <button class="btn btn-danger" (click)="deleteValue()">Click</button>
+            </div>
+          </div>
+          </ng-template>
+          <!-- <button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button> -->
+          <button class="btn btn-success ml-20" (click)="onStocks('OnStock');openModal(template)">On</button>
+          <button class="btn btn-danger" (click)="offStocks('OffStock');openModal(template)">Off</button>
+        </div>
+        <div class="text-right">
+          <button class="btn btn-primary" (click)="addStock()">Add Stock</button>
+        </div>
+        <table class="table table-responsive-sm table-hover table-outline mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center">
+                <input type="checkbox" formControlName="allStatus" (change)="onClick('allValues')"/>
+              </th>
+              <th class="text-center">SI.No</th>
+              <th class="text-center">Image</th>
+              <th class="text-center">Product Name</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Product Price</th>
+              <th class="text-center">Brokerage Charges</th>
+              <th class="text-center">Date &amp; Time</th>
+              <th class="text-center">Stock Status</th>
+              <th class="text-center">Action</th>
+              <th>
+          <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="myModal.show()">
+            Launch demo modal
+          </button> -->
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of allProducts; let i = index">
+              <td class="text-center">
+                <!-- <input type="checkbox" formControlName="value" [checked]="product.status" (change)="checkValues(form.value, product)"> -->
+                <input type="checkbox" formControlName="value" [checked]="checkBox" (change)="onClick('singleValues', product)">
+              </td>
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                <img src="../../../assets/{{product.video}}" alt="Stock Image" width="75" height="50">
+              </td>
+              <td class="text-center">{{product.stock_name?product.stock_name:'N/A'}}</td>
+              <td class="text-center">{{product.stock_quantity?product.stock_quantity:'N/A'}}</td>
+              <td class="text-center">{{product.stock_price?product.stock_price:'N/A'}}</td>
+              <td class="text-center">{{product.stock_brokerage?product.stock_brokerage:'N/A'}}</td>
+              <td class="text-center">{{product.created_AT | date:'MMM d, y, h:mm:ss a'}}</td>
+              <td class="text-center">
+                <!-- <ui-switch size="small" name="status" [checked]="product.status" (change)="switch($event, product)"></ui-switch> -->
+                <div>
+                  <span *ngIf="product.status" style="color: green"><b>On</b></span>
+                  <span *ngIf="!product.status" style="color: red"><b>Off</b></span>
+                </div>
+              </td>
+              <td class="text-center"><a routerLink="/viewStock/{{product.ID}}">Edit</a> | <a style="color: red" (click)="deleteStock('delete',product.ID)">Delete</a></td>
+            </tr>
+          </tbody>
+        </table>
+      <!-- <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Modal title</h4>
+              <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
